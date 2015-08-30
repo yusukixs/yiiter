@@ -1,5 +1,2 @@
-# log file
-log/*
-
-# tmp directory
-tmp/*
+log
+tmp
