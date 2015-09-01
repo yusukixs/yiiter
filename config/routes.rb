@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :users
   root "top#index"
   
   get "about" => "top#about", as: "about"
