@@ -38,10 +38,11 @@ gem 'puma'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-# twitter bootstrap css & javascript toolkit
-gem 'twitter-bootswatch-rails'
-
-# twitter bootstrap helpers gem, e.g., alerts etc...
-gem 'twitter-bootswatch-rails-helpers'
-
+# javascript runtime。lessをコンパイルするために必要
 gem 'therubyracer'
+# Railsでlessを使えるようにする。Bootstrapがlessで書かれているため
+gem 'less-rails'
+# Bootstrapの本体
+gem 'twitter-bootstrap-rails'
+# シンプルフォーム
+gem 'simple_form'
