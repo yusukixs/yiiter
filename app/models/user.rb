@@ -18,16 +18,17 @@ class User < ActiveRecord::Base
   
   def password=(val)
     if val.present?
-      self.password = BCrypt::Password.create(val)
+      self.hashed_password = BCrypt::Password.create(val)
     end
     @password = val
   end
   
+  
   class << self
     def authenticate(account_name, password)
       user = find_by(account_name: account_name)
-      if user && user.password.present? &&
-        BCrypt::Password.new(user.password) == password
+      if user && user.hashed_password.present? &&
+        BCrypt::Password.new(user.hashed_password) == password
         user
       else
         nil

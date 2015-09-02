@@ -1,3 +1,11 @@
+<% if current_user %>
+<p>
+<%= current_user.full_name %>さん |
+<%= link_to "ログアウト", :session,
+      method: :delete, data: { confirm: "ログアウトしますか？" } %>
+</p>
+<% end %>
+
 <div class="navbar navbar-default navbar-static-top">
 	<div class="container">
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">

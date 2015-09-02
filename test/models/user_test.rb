@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "factory girl" do
+    user = FactoryGirl.create(:user)
+    assert_equal "Yamada Taro", user.full_name
+  end
 end

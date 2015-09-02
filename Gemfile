@@ -49,3 +49,8 @@ gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 # シンプルフォーム
 gem 'simple_form'
+
+# Factory Girl
+group :test do
+  gem 'factory_girl_rails', '~> 4.4.0'
+end
