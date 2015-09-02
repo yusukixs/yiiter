@@ -5,10 +5,16 @@
   <%= error_span(@user[:full_name]) %>
   <%= f.input :password %>
   <%= error_span(@user[:password]) %>
+  <%= f.input :password_confirmation %>
+  <%= error_span(@user[:password_confirmation]) %>
   <%= f.input :email %>
   <%= error_span(@user[:email]) %>
   <%= f.input :administrator %>
   <%= error_span(@user[:administrator]) %>
+  
+  <% unless @user.new_record? %>
+  <p>パスワードを変更しない場合、パスワード入力欄は空にしてください。</p>
+  <% end %>
 
   <%= f.button :submit, :class => 'btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
