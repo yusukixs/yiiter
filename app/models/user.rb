@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  paginates_per 10
+  
   validates :account_name,
     presence: true,
     uniqueness: { case_sensitive: false },

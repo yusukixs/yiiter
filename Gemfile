@@ -54,3 +54,6 @@ gem 'simple_form'
 group :test do
   gem 'factory_girl_rails', '~> 4.4.0'
 end
+
+# ページネーション
+gem 'kaminari'

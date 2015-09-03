@@ -26,6 +26,10 @@
 </div>
 <% end %>
 
+<%= paginate @articles %>
+
+<p>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_article_path,
             :class => 'btn btn-primary' %>
+</p>
