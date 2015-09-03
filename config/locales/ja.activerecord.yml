@@ -1,0 +1,25 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      article: 記事
+    attributes:
+      user:
+        id: ID
+        account_name: アカウント名
+        full_name: 氏名
+        password: パスワード
+        password_confirmation: パスワードの確認
+        email: Eメール
+        administrator: 管理者
+        created_at: 作成日時
+        updated_at: 作成日時
+      article:
+        id: ID
+        title: タイトル
+        description: 内容
+        created_at: 作成日時
+        updated_at: 作成日時
+    errors:
+      messages:
+        invalid_account_name: "半角英数字で入力してください"
