@@ -1,14 +1,17 @@
 <%- model_class = Article -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+    	<%= @article.title %>
+    </h3>
+  </div>
+  <div class="panel-body">
+    <%= markdown @article.description %>
+  </div>
+  <div class="panel-footer">
+  	<%= model_class.human_attribute_name(:created_at) %>：<%=l @article.created_at %>
+ 	</div>
 </div>
-
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
-  <dd><%= @article.title %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
-  <dd><%= @article.description %></dd>
-</dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               articles_path, :class => 'btn btn-default'  %>

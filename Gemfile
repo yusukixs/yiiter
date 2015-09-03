@@ -57,3 +57,6 @@ end
 
 # ページネーション
 gem 'kaminari'
+
+# Markdown
+gem 'redcarpet'
