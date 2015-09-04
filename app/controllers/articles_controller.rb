@@ -1,4 +1,7 @@
 class ArticlesController < ApplicationController
+  # 一覧と詳細以外はログイン必須
+  before_action :login_required, except: [:index, :show]
+  
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   # GET /articles

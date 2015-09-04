@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  # ログイン必須
+  before_action :login_required
+  
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
