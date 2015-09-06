@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
+  #get 'accounts/show'
+
+  #get 'accounts/edit'
+
   resources :articles
   resources :users
   resource :session, only: [:create, :destroy]
+  resource :account, only: [:show, :edit, :update]
   
   root "top#index"
   

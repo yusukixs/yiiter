@@ -1,6 +1,6 @@
 <% if current_user %>
 <p>
-<%= current_user.full_name %>さん |
+<%= link_to current_user.full_name + "さん", :account %> |
 <%= link_to "ログアウト", :session,
       method: :delete, data: { confirm: "ログアウトしますか？" } %>
 </p>

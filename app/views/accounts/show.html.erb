@@ -1,0 +1,20 @@
+<%- model_class = User -%>
+
+<% @page_title = "マイアカウント" %>
+<h1><%= @page_title %></h1>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:account_name) %>:</strong></dt>
+  <dd><%= @user.account_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:full_name) %>:</strong></dt>
+  <dd><%= @user.full_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:password) %>:</strong></dt>
+  <dd><%= @user.password %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+  <dd><%= @user.email %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:administrator) %>:</strong></dt>
+  <dd><%= @user.administrator %></dd>
+</dl>
+
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              :edit_account, :class => 'btn btn-default' %>
