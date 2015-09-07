@@ -1,6 +1,14 @@
 <div class="well sidebar-nav">
 <%= render "shared/login_form" unless current_user %>
 
+<% if current_user %>
+<p>
+<%= link_to current_user.full_name + "さん", :account %> |
+<%= link_to "ログアウト", :session,
+      method: :delete, data: { confirm: "ログアウトしますか？" } %>
+</p>
+<% end %>
+
 <h2>最新記事</h2>
 <ul>
   <% 5.times do |i| %>
