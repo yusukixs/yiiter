@@ -18,6 +18,11 @@ ja:
         id: ID
         title: タイトル
         description: 内容
+        released_at: 公開日時
+        status: 状態
+        status_draft: 下書き
+        status_member_only: 会員限定
+        status_public: 公開
         created_at: 作成日時
         updated_at: 作成日時
     errors:

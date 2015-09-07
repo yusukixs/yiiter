@@ -7,19 +7,20 @@
 <%= link_to "ログアウト", :session,
       method: :delete, data: { confirm: "ログアウトしますか？" } %>
 </p>
+<p>
+<%= link_to "記事を作成する", :new_article %>
+</p>
 <% end %>
 
 <h2>最新記事</h2>
 <ul>
-  <% 5.times do |i| %>
-  <li><%= link_to "ニュースの見出し", "#" %></li>
-  <% end %>
-</ul>
-
-<h2>会員のブログ</h2>
-<ul>
-  <% 5.times do |i| %>
-  <li><%= link_to "ブログの見出し", "#" %></li>
-  <% end %>
+	<% Article.sidebar_articles(current_user, 5).each do |article| %>
+	<li>
+		<%= link_to article.title, article %>
+		<%- model_class = Article -%>
+		by <%= link_to article.author.full_name, [article.author, :articles] %>
+  	<p><%=l article.released_at %></p>
+	</li>
+	<% end %>
 </ul>
 </div>

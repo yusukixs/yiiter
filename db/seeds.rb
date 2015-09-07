@@ -1,7 +1,7 @@
 #
 # seeds/development/テーブル名.rb にテストデータを置く。
 #
-table_names = %w(users)
+table_names = %w(users articles)
 table_names.each do |table_name|
   path = Rails.root.join("db/seeds", "development", table_name + ".rb")
   if File.exist?(path)

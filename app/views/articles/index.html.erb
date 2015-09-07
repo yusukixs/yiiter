@@ -1,6 +1,7 @@
 <%- model_class = Article -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+	<% @page_title = @user ? @user.full_name + "さんの投稿記事一覧" : "記事一覧" %>
+  <h1><%= @page_title %></h1>
 </div>
 
 <% @articles.each do |article| %>
@@ -11,10 +12,12 @@
     </h3>
   </div>
   <div class="panel-body">
-    <%= markdown article.description %>
+    <%= markdown truncate(article.description, length: 100) %>
+    <p><%= link_to "もっと読む", article %></p>
   </div>
   <div class="panel-footer">
-  	<%= model_class.human_attribute_name(:created_at) %>：<%=l article.created_at %>
+  	by <%= link_to article.author.full_name, [article.author, :articles] %>
+  	 | <%= model_class.human_attribute_name(:released_at) %>：<%=l article.released_at %>
   	<% if current_user %>
   	<%= link_to t('.edit', :default => t("helpers.links.edit")),
                 edit_article_path(article), :class => 'btn btn-default btn-xs' %>

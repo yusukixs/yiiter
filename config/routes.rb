@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   #get 'accounts/edit'
 
   resources :articles
-  resources :users
+  resources :users do
+    resources :articles, only: [:index]
+  end
   resource :session, only: [:create, :destroy]
   resource :account, only: [:show, :edit, :update]
   

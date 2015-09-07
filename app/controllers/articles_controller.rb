@@ -7,12 +7,19 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.page(params[:page])
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+      @articles = @user.articles
+    else
+      @articles = Article.all
+    end
+    @articles = @articles.readable_for(current_user).order(released_at: :desc).page(params[:page])
   end
 
   # GET /articles/1
   # GET /articles/1.json
   def show
+    @article = Article.readable_for(current_user).find(params[:id])
   end
 
   # GET /articles/new

@@ -1,6 +1,11 @@
 class User < ActiveRecord::Base
+  # 1ページあたりの取得件数
   paginates_per 10
   
+  # articleテーブルと1:N関係
+  has_many :articles
+  
+  # アカウント名のバリデーション
   validates :account_name,
     presence: true,
     uniqueness: { case_sensitive: false },
@@ -18,13 +23,13 @@ class User < ActiveRecord::Base
     
   attr_accessor :password, :password_confirmation
   
+  # パスワードのハッシュ化
   def password=(val)
     if val.present?
       self.hashed_password = BCrypt::Password.create(val)
     end
     @password = val
   end
-  
   
   class << self
     def authenticate(account_name, password)
