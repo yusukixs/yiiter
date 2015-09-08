@@ -1,4 +1,17 @@
 <%= simple_form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
+
+	<%= f.fields_for :image do |imgf| %>
+		<%= imgf.file_field :uploaded_image %>
+		<% if !imgf.object.new_record? && imgf.object.errors.empty? %>
+		<div>
+			<%= user_image_tag @user, width: 60 %>
+			<%= imgf.check_box :_destroy %>
+			<%= imgf.label :_destroy %>
+			<%= imgf.hidden_field :id %>
+		</div>
+		<% end %>
+	<% end %>
+
   <%= f.input :account_name %>
   <%= error_span(@user[:account_name]) %>
   <%= f.input :full_name %>

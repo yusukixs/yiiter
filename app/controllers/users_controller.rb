@@ -13,15 +13,24 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @user = User.find(params[:id])
+    if params[:format].in?(["jpg", "gif", "png"])
+      send_image
+    else
+      render "show"
+    end
   end
 
   # GET /users/new
   def new
     @user = User.new
+    @user.build_image
   end
 
   # GET /users/1/edit
   def edit
+    @user = User.find(params[:id])
+    @user.build_image unless @user.image
   end
 
   # POST /users
@@ -72,6 +81,19 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:account_name, :full_name, :password, :password_confirmation, :email, :administrator)
+      attrs = [:account_name, :full_name, :password, :password_confirmation, :email]
+      # 管理者の場合、管理者フラグをパラメータとして許可
+      attrs << :administrator if current_user.administrator?
+      # ユーザーアイコンをパラメータとして許可
+      attrs << { image_attributes: [:_destroy, :id, :uploaded_image] }
+      params.require(:user).permit(attrs)
+    end
+    
+    def send_image
+      if @user.image.present?
+        send_data @user.image.data, type: @user.image.content_type, disposition: "inline"
+      else
+        raise NotFound
+      end
     end
 end

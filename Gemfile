@@ -60,3 +60,5 @@ gem 'kaminari'
 
 # Markdown
 gem 'redcarpet'
+
+gem 'rack'

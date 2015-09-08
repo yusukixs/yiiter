@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:image) %></th>
       <th><%= model_class.human_attribute_name(:account_name) %></th>
       <th><%= model_class.human_attribute_name(:full_name) %></th>
       <th><%= model_class.human_attribute_name(:email) %></th>
@@ -18,6 +19,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.id, user_path(user) %></td>
+        <td><%= user_image_tag user, height: 32 %></td>
         <td><%= user.account_name %></td>
         <td><%= user.full_name %></td>
         <td><%= user.email %></td>

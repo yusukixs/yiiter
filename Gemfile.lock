@@ -173,6 +173,7 @@ DEPENDENCIES
   less-rails
   pg
   puma
+  rack
   rails (= 4.2.3)
   rails-i18n
   rails_12factor

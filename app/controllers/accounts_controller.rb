@@ -8,6 +8,7 @@ class AccountsController < ApplicationController
   
   def edit
     @user = current_user
+    @user.build_image unless @user.image
   end
 
   def update
@@ -22,6 +23,9 @@ class AccountsController < ApplicationController
   
   private
   def account_params
-    params.require(:account).permit(:account_name, :full_name, :password, :password_confirmation, :email)
+    attrs = [:account_name, :full_name, :password, :password_confirmation, :email]
+    # ユーザーアイコンをパラメータとして許可
+    attrs << { image_attributes: [:_destroy, :id, :uploaded_image] }
+    params.require(:account).permit(attrs)
   end
 end

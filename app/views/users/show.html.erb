@@ -4,6 +4,7 @@
 </div>
 
 <dl class="dl-horizontal">
+	<dd><%= user_image_tag @user, height: 96 %></dd>
   <dt><strong><%= model_class.human_attribute_name(:account_name) %>:</strong></dt>
   <dd><%= @user.account_name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:full_name) %>:</strong></dt>

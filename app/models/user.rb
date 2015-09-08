@@ -5,6 +5,11 @@ class User < ActiveRecord::Base
   # articleテーブルと1:N関係
   has_many :articles
   
+  # user_imageテーブルと1:1関係
+  has_one :image, class_name:"UserImage", dependent: :destroy
+  
+  accepts_nested_attributes_for :image, allow_destroy: true
+  
   # アカウント名のバリデーション
   validates :account_name,
     presence: true,
