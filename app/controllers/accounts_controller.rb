@@ -4,6 +4,7 @@ class AccountsController < ApplicationController
   
   def show
     @user = current_user
+    @articles = @user.articles
   end
   
   def edit
