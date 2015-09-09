@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   # ログイン必須
-  before_action :login_required
+  before_action :login_required, except: :show
   
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
