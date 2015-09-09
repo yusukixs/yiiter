@@ -7,6 +7,10 @@ class Article < ActiveRecord::Base
   # 記事の作成ユーザーを"author"として紐付け
   belongs_to :author, class_name: "User", foreign_key: "user_id"
   
+  # 記事への投票をユーザーと紐付け
+  has_many :votes, dependent: :destroy
+  has_many :voters, through: :votes, source: :user
+  
   validates :title,
     presence: true,
     length: { maximum: 50 }

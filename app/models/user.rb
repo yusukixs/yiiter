@@ -5,6 +5,10 @@ class User < ActiveRecord::Base
   # articleテーブルと1:N関係
   has_many :articles
   
+  # 記事の投票先をユーザーと紐付け
+  has_many :votes, dependent: :destroy
+  has_many :voted_articles, through: :votes, source: :article
+  
   # user_imageテーブルと1:1関係
   has_one :image, class_name:"UserImage", dependent: :destroy
   
@@ -34,6 +38,12 @@ class User < ActiveRecord::Base
       self.hashed_password = BCrypt::Password.create(val)
     end
     @password = val
+  end
+  
+  # 記事に投票できるかどうかをチェック
+  def votable_for?(article)
+    # 自分の記事には投票できない かつ　一つの記事に投票は一度しかできない
+    article && article.author != self && !votes.exists?(article_id: article.id)
   end
   
   class << self

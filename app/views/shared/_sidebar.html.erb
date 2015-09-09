@@ -3,13 +3,16 @@
 
 <% if current_user %>
 <p>
-<%= user_image_tag current_user, height: 32 %>
-<%= link_to current_user.full_name + "さん", :account %> |
-<%= link_to "ログアウト", :session,
-      method: :delete, data: { confirm: "ログアウトしますか？" } %>
+	<%= user_image_tag current_user, height: 32 %>
+	<%= link_to current_user.full_name + "さん", :account %> |
+	<%= link_to "ログアウト", :session,
+	      method: :delete, data: { confirm: "ログアウトしますか？" } %>
 </p>
 <p>
-<%= link_to "記事を作成する", :new_article %>
+	<%= link_to "記事を作成する", :new_article %>
+</p>
+<p>
+	<%= link_to "投票した記事", :voted_articles %>
 </p>
 <% end %>
 

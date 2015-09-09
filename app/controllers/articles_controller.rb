@@ -70,6 +70,24 @@ class ArticlesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  # 投票
+  def like
+    @article = Article.published.find(params[:id])
+    current_user.voted_articles << @article
+    redirect_to @article, notice: "投票しました。"
+  end
+  
+  # 投票を削除
+  def unlike
+    current_user.voted_articles.destroy(Article.find(params[:id]))
+    redirect_to :voted_articles, notice: "投票を削除しました。"
+  end
+
+  # 投票した記事一覧
+  def voted
+    @articles = current_user.voted_articles.published.order("votes.created_at DESC")
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
