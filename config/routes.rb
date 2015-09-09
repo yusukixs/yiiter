@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   
   get "about" => "top#about", as: "about"
 
-  resources :users, only: [:index, :show] do
+  resources :users do
     resources :articles, only: [:index]
   end
   resources :articles do
