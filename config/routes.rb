@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root "top#index"
   
   get "about" => "top#about", as: "about"
+  get "login" => "top#login", as: "login"
 
   resources :users do
     resources :articles, only: [:index]

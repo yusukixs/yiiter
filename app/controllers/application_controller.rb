@@ -19,4 +19,15 @@ class ApplicationController < ActionController::Base
   def login_required
     raise Forbidden unless current_user
   end
+  
+  # 管理者かどうかを判定する
+  def admin_user
+    if session[:user_id]
+      User.find_by(id: session[:user_id]).administrator
+    else
+      false
+    end
+  end
+  # 管理者かどうかを判定するヘルパーメソッドを追加
+  helper_method :admin_user
 end

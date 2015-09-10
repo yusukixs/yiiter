@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    @articles = @user.articles.page(params[:page])
     if params[:format].in?(["jpg", "gif", "png"])
       send_image
     else
@@ -96,4 +97,11 @@ class UsersController < ApplicationController
         raise NotFound
       end
     end
+    
+  # 自分自身のページかどうかを判定する
+  def is_myself
+    params[:id].to_i == session[:user_id]
+  end
+  # 自分自身のページかどうかを判定するヘルパーメソッドを追加
+  helper_method :is_myself
 end

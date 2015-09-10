@@ -9,7 +9,7 @@
     <%= markdown @article.description %>
   </div>
   <div class="panel-footer">
-  	by <%= user_image_tag @article.author, height: 32 %><%= link_to @article.author.full_name, [@article.author, :articles] %>
+  	by <%= user_image_tag @article.author, class: "img-circle", height: 32 %><%= link_to @article.author.full_name, user_path(@article.author) %>
   	 | <%= model_class.human_attribute_name(:released_at) %>：<%=l @article.released_at %>
   	<p>
   	<% if current_user && current_user.votable_for?(@article) %>
@@ -17,7 +17,7 @@
   	<% end %>
   	<p>この記事に<%= @article.votes.count %>人がいいね！しています。</p>
   	<% @article.voters.order("votes.created_at").each do |voter| %>
-  		<%= user_image_tag voter, height: 32 %>
+  		<%= user_image_tag voter, class: "img-circle", height: 32 %>
   	<% end %>
   	</p>	
  	</div>

@@ -4,7 +4,7 @@
 <h1><%= @page_title %></h1>
 
 <dl class="dl-horizontal">
-	<dd><%= user_image_tag @user, width: 96 %></dd>
+	<dd><%= user_image_tag @user, class: "img-circle", width: 96 %></dd>
   <dt><strong><%= model_class.human_attribute_name(:account_name) %>:</strong></dt>
   <dd><%= @user.account_name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:full_name) %>:</strong></dt>
@@ -20,54 +20,3 @@
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
               :edit_account, :class => 'btn btn-default' %>
               
-
-
-<ul class="nav nav-tabs">
-<li class="active"><a href="#tab1" data-toggle="tab">投稿した記事一覧</a></li>
-<li><a href="#tab2" data-toggle="tab">いいね！した記事一覧</a></li>
-</ul>
-<div id="myTabContent" class="tab-content">
-<div class="tab-pane fade in active" id="tab1">
-<% if current_user %>
-<p>
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_article_path,
-            :class => 'btn btn-primary' %>
-</p>
-<% end %>
-<% @articles.each do |article| %>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">
-    	<%= link_to article.title, article_path(article) %>
-    </h3>
-  </div>
-  <div class="panel-body">
-    <%= markdown truncate(article.description, length: 100) %>
-    <p><%= link_to "もっと読む", article %></p>
-  </div>
-  <div class="panel-footer">
-  	by <%= user_image_tag article.author, height: 32 %><%= link_to article.author.full_name, [article.author, :articles] %>
-  	| <%= model_class.human_attribute_name(:released_at) %>：<%=l article.released_at %>
-  	
-  	<% if article.votes.count > 0 %>
-  	| <span class="vote">★<%= article.votes.count %></span>
-  	<% end %>
-  	 
-  	<% if current_user %>
-  	<%= link_to t('.edit', :default => t("helpers.links.edit")),
-                edit_article_path(article), :class => 'btn btn-default btn-xs' %>
-    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                article_path(article),
-                :method => :delete,
-                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                :class => 'btn btn-xs btn-danger' %>
-    <% end %>
- 	</div>
-</div>
-<% end %>
-</div>
-<div class="tab-pane fade" id="tab2">
-    <p>コンテンツ2</p>
-</div>
-</div>

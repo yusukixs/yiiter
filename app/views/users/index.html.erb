@@ -19,7 +19,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.id, user_path(user) %></td>
-        <td><%= user_image_tag user, height: 32 %></td>
+        <td><%= user_image_tag user, class: "img-circle", height: 32 %></td>
         <td><%= user.account_name %></td>
         <td><%= user.full_name %></td>
         <td><%= user.email %></td>
