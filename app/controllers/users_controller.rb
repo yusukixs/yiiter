@@ -14,7 +14,8 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-    @articles = @user.articles.page(params[:page])
+    # 読み込み可能な記事一覧を取得
+    @articles = @user.articles.readable_for(current_user).order(released_at: :desc).page(params[:page])
     if params[:format].in?(["jpg", "gif", "png"])
       send_image
     else
