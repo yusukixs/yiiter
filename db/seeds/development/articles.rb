@@ -1,7 +1,4 @@
-description = 
-  "## あいうえお¥n" +
-  "- 箇条書き1¥n" +
-  "  - 箇条書き2"
+text = "あいうえお¥n- 箇条書き1¥n  - 箇条書き2"
 
 %w(Taro Jiro Hana).each do |name|
   user = User.find_by(account_name: name)
@@ -9,7 +6,7 @@ description =
     article= Article.create(
       author: user,
       title: "記事#{idx}",
-      description: description,
+      description: text,
       released_at: 10.days.ago.advance(days: idx),
       status: %w(draft member_only public)[idx % 3]
     )

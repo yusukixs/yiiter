@@ -1,10 +1,10 @@
 ja:
   views:
     pagination:
-      first:    "＜＜"
-      last:     "＞＞"
-      previous: "＜"
-      next:     "＞"
+      first:    "<<"
+      last:     ">>"
+      previous: "<"
+      next:     ">"
       truncate: "…"
   helpers:
     page_entries_info:

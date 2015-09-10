@@ -15,7 +15,6 @@
  *= require bootstrap_and_overrides
  */
 
-.btn-login-header {
-	margin-top: 0px
-	margin-bottom: 0px;
+.article-list-icon {
+	margin-right: 20px;
 }

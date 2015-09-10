@@ -2,7 +2,7 @@ class Article < ActiveRecord::Base
   STATUS_VALUES = %w(draft member_only public)
   
   # 1ページあたりの取得件数
-  paginates_per 10
+  paginates_per 5
   
   # 記事の作成ユーザーを"author"として紐付け
   belongs_to :author, class_name: "User", foreign_key: "user_id"
