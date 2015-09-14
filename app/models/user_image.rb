@@ -4,13 +4,7 @@ class UserImage < ActiveRecord::Base
   attr_reader :uploaded_image
   
   validate :check_image
-  
-  IMAGE_TYPES = { "image/jpeg" => "jpg", "image/gif" => "gif", "image/png" => "png" }
-  
-  def extension
-    IMAGE_TYPES[content_type]
-  end
-  
+
   def uploaded_image=(image)
     self.content_type = convert_content_type(image.content_type)
     self.data = image.read

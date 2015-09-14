@@ -34,3 +34,21 @@
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
 <% end %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">コメント一覧</div>
+  <ul class="list-group">
+  	<% @comments.each do |comment| %>
+    <li class="list-group-item">
+		<div class="media">
+		  <%= comment_user_image comment, class: "pull-left img-circle article-list-icon", height: 64 %>
+		  <div class="media-body">
+				<%= markdown comment.comment %>
+		   	<%= link_to comment.full_name, user_path(comment.user_id) %>
+		  	| <%= "登録日時" %>：<%=l comment.created_at %>	  	
+		  </div>
+		</div>
+    </li>
+    <% end %>
+  </ul>
+</div>

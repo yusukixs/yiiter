@@ -20,6 +20,12 @@ class ArticlesController < ApplicationController
   # GET /articles/1.json
   def show
     @article = Article.readable_for(current_user).find(params[:id])
+    
+    @comments = Comment.find_by_sql(["SELECT *
+                  FROM comments
+                  INNER JOIN (users INNER JOIN user_images ON users.id = user_images.user_id ) ON comments.user_id = users.id
+                  WHERE comments.article_id = ?
+                  ORDER BY comments.created_at DESC", params[:id]])
   end
 
   # GET /articles/new
@@ -103,5 +109,13 @@ class ArticlesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
       params.require(:article).permit(:title, :description)
+    end
+    
+    def send_image
+      if @comment.image.present?
+        send_data @comment.image.data, type: @comment.image.content_type, disposition: "inline"
+      else
+        raise NotFound
+      end
     end
 end
