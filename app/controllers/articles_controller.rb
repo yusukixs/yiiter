@@ -88,6 +88,11 @@ class ArticlesController < ApplicationController
   def voted
     @articles = current_user.voted_articles.published.order("votes.created_at DESC")
   end
+  
+  # コメントした記事一覧
+  def commented
+    @articles = current_user.commented_articles.published.order("comments.created_at DESC")
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

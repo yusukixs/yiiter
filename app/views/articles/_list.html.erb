@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">最新の記事一覧</div>
   <ul class="list-group">
-  	<% Article.all.readable_for(current_user).order(released_at: :desc).page(params[:page]).each do |article| %>
+  	<% @articles.each do |article| %>
     <li class="list-group-item">
 		<div class="media">
 		  <%= user_image_tag article.author, class: "pull-left img-circle article-list-icon", height: 64 %>

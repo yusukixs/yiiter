@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
   has_many :votes, dependent: :destroy
   has_many :voted_articles, through: :votes, source: :article
   
+  # 記事のコメントをユーザーと紐付け
+  has_many :comments, dependent: :destroy
+  has_many :commented_articles, through: :comments, source: :article
+  
   # user_imageテーブルと1:1関係
   has_one :image, class_name:"UserImage", dependent: :destroy
   

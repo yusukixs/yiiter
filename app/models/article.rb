@@ -11,6 +11,10 @@ class Article < ActiveRecord::Base
   has_many :votes, dependent: :destroy
   has_many :voters, through: :votes, source: :user
   
+  # 記事へのコメントをユーザーと紐付け
+  has_many :comments, dependent: :destroy
+  has_many :commenters, through: :comments, source: :user
+  
   validates :title,
     presence: true,
     length: { maximum: 50 }

@@ -16,5 +16,16 @@ text = "あいうえお¥n- 箇条書き1¥n  - 箇条書き2"
         voter.voted_articles << article
       end
     end
+    if idx == 7 || idx == 8
+      %w(John Mike Sophy).each do |name3|
+        commenter = User.find_by(account_name: name3)
+        #commenter.commented_articles << article
+        Comment.create(
+          user: commenter,
+          article: article,
+          comment: "###あいうえお#{idx}"
+        ) 
+      end
+    end
   end
 end
