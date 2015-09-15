@@ -1,4 +1,3 @@
-<%- model_class = Article -%>
 <div class="page-header">
 	<% @page_title = @user ? @user.full_name + "さんの投稿記事一覧" : "記事一覧" %>
   <h1><%= @page_title %></h1>
@@ -7,21 +6,24 @@
 <% @articles.each do |article| %>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">
+    <h2 class="panel-title">
     	<%= link_to article.title, article_path(article) %>
-    </h3>
+    </h2>
   </div>
   <div class="panel-body">
     <%= markdown truncate(article.description, length: 100) %>
-    <p><%= link_to "もっと読む", article %></p>
+    <span style="float: right;"><%= link_to "もっと読む", article %></span>
   </div>
   <div class="panel-footer">
-  	by <%= user_image_tag article.author, class: "img-circle", height: 32 %><%= link_to article.author.full_name, user_path(article.author) %>
-  	| <%= model_class.human_attribute_name(:released_at) %>：<%=l article.released_at %>
+  	<%= user_image_tag article.author, class: "img-circle", height: 32 %>
+  	<%= link_to article.author.full_name, user_path(article.author) %>
   	
+  	<span style="float: right;">
+  	<%=l article.released_at %>
   	<% if article.votes.count > 0 %>
-  	| <span class="vote">★<%= article.votes.count %></span>
+  	<span class="label label-primary">★<%= article.votes.count %></span>
   	<% end %>
+  	</span>
   	 
   	<% if current_user %>
   	<%= link_to t('.edit', :default => t("helpers.links.edit")),

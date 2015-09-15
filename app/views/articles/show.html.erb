@@ -9,17 +9,23 @@
     <%= markdown @article.description %>
   </div>
   <div class="panel-footer">
-  	by <%= user_image_tag @article.author, class: "img-circle", height: 32 %><%= link_to @article.author.full_name, user_path(@article.author) %>
-  	 | <%= model_class.human_attribute_name(:released_at) %>：<%=l @article.released_at %>
+  	by <%= user_image_tag @article.author, class: "img-circle", height: 32, title: @article.author.full_name %>
+  	<%= link_to @article.author.full_name, user_path(@article.author) %>
+  	
+  	<span style="float:right"><%=l @article.released_at %></span>
   	<p>
-  	<% if current_user && current_user.votable_for?(@article) %>
-  		<%= link_to "★いいね！", [:like, @article], method: :patch, class: "button" %>
-  	<% end %>
-  	<p>この記事に<%= @article.votes.count %>人がいいね！しています。</p>
+  	<p>
+  		この記事に<%= @article.votes.count %>人がいいね！しています。
+  		<% if current_user && current_user.votable_for?(@article) %>
+	  		<%= link_to "★いいね！", [:like, @article], method: :patch, class: "btn btn-primary btn-xs" %>
+	  	<% else %>
+	  		<%= link_to "★取消", [:unlike, @article], method: :patch, data: { confirm: "取り消しますか？" }, class: "btn btn-danger btn-xs" %>
+	  	<% end %>
+  	</p>
   	<% @article.voters.order("votes.created_at").each do |voter| %>
-  		<%= user_image_tag voter, class: "img-circle", height: 32 %>
+  		<%= user_image_tag voter, class: "img-circle", height: 32, title: voter.full_name %>
   	<% end %>
-  	</p>	
+  	</p>
  	</div>
 </div>
 
@@ -35,14 +41,14 @@
               :class => 'btn btn-danger' %>
 <% end %>
 
-<div class="panel panel-default">
+<div class="panel panel-default content-block-top">
   <div class="panel-heading">コメント一覧</div>
   <% if @comments.present? %>
   <ul class="list-group">
   	<% @comments.each do |comment| %>
     <li class="list-group-item">
 		<div class="media">
-		  <%= comment_user_image comment, class: "pull-left img-circle article-list-icon", height: 64 %>
+		  <%= comment_user_image comment, class: "pull-left img-circle article-list-icon", height: 64, title: comment.full_name %>
 		  <div class="media-body">
 				<%= markdown comment.comment %>
 		   	<%= link_to comment.full_name, user_path(comment.user_id) %>
@@ -53,6 +59,6 @@
     <% end %>
   </ul>
   <% else %>
-  <p>コメントはまだありません。</p>
+  <p class="comment-block">コメントはまだありません。</p>
   <% end %>
 </div>

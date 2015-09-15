@@ -87,7 +87,7 @@ class ArticlesController < ApplicationController
   # 投票を削除
   def unlike
     current_user.voted_articles.destroy(Article.find(params[:id]))
-    redirect_to current_user, notice: "投票を削除しました。"
+    redirect_to Article.find(params[:id]), notice: "投票を削除しました。"
   end
 
   # 投票した記事一覧
