@@ -30,40 +30,35 @@ class ArticlesController < ApplicationController
 
   # GET /articles/new
   def new
-    @article = Article.new
+    @article = Article.new(released_at: Time.current)
   end
 
   # GET /articles/1/edit
   def edit
+    @article = Article.readable_for(current_user).find(params[:id])
   end
 
   # POST /articles
   # POST /articles.json
   def create
     @article = Article.new(article_params)
-
-    respond_to do |format|
-      if @article.save
-        format.html { redirect_to @article, notice: 'Article was successfully created.' }
-        format.json { render :show, status: :created, location: @article }
-      else
-        format.html { render :new }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
-      end
+    @article.author = current_user
+    if @article.save
+      redirect_to @article, notice: "記事を作成しました。"
+    else
+      render "new"
     end
   end
 
   # PATCH/PUT /articles/1
   # PATCH/PUT /articles/1.json
   def update
-    respond_to do |format|
-      if @article.update(article_params)
-        format.html { redirect_to @article, notice: 'Article was successfully updated.' }
-        format.json { render :show, status: :ok, location: @article }
-      else
-        format.html { render :edit }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
-      end
+    @article = Article.readable_for(current_user).find(params[:id])
+    @article.assign_attributes(article_params)
+    if @article.save
+      redirect_to @article, notice: "記事を更新しました。"
+    else
+      render "edit"
     end
   end
 
@@ -108,7 +103,7 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:title, :description)
+      params.require(:article).permit(:title, :description, :released_at, :status)
     end
     
     def send_image

@@ -1,8 +1,12 @@
 <%= simple_form_for @article, :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.input :title %>
   <%= error_span(@article[:title]) %>
-  <%= f.input :description %>
+  <%= f.input :description, :input_html => { :rows => 20 } %>
   <%= error_span(@article[:description]) %>
+  <%= f.input :released_at %>
+  <%= error_span(@article[:released_at]) %>
+  <%= f.input :status, as: :radio_buttons, collection: [["下書き", "draft"], ["会員限定", "member_only"], ["公開", "public"]] %>
+  <%= error_span(@article[:status]) %>
 
   <%= f.button :submit, :class => 'btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

@@ -2,6 +2,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">
+    	<%= article_status(@article) %>
     	<%= @article.title %>
     </h3>
   </div>
@@ -18,7 +19,7 @@
   		この記事に<%= @article.votes.count %>人がいいね！しています。
   		<% if current_user && current_user.votable_for?(@article) %>
 	  		<%= link_to "★いいね！", [:like, @article], method: :patch, class: "btn btn-primary btn-xs" %>
-	  	<% else %>
+	  	<% elsif @article.author.id != session[:user_id] %>
 	  		<%= link_to "★取消", [:unlike, @article], method: :patch, data: { confirm: "取り消しますか？" }, class: "btn btn-danger btn-xs" %>
 	  	<% end %>
   	</p>
