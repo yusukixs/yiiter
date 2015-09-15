@@ -30,9 +30,21 @@ class User < ActiveRecord::Base
     length: { maximum: 20 }
     
   validates :password,
-    presence: { on: :create },
+    presence: true,
     length: { minimum: 6 },
-    confirmation: { allow_blank: true }
+    confirmation: true,
+    on: :create
+
+  validates :password,
+    confirmation: { allow_blank: true },
+    allow_blank: true,
+    length: { minimum: 6 },
+    on: :update
+    
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email,
+    allow_blank: true,
+    format: { with: VALID_EMAIL_REGEX }
     
   attr_accessor :password, :password_confirmation
   

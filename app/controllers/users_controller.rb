@@ -4,14 +4,10 @@ class UsersController < ApplicationController
   
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  # GET /users
-  # GET /users.json
   def index
     @users = User.page(params[:page])
   end
 
-  # GET /users/1
-  # GET /users/1.json
   def show
     @user = User.find(params[:id])
     # 読み込み可能な記事一覧を取得
@@ -23,20 +19,16 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/new
   def new
     @user = User.new
     @user.build_image
   end
 
-  # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
     @user.build_image unless @user.image
   end
 
-  # POST /users
-  # POST /users.json
   def create
     @user = User.new(user_params)
 
@@ -51,17 +43,13 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'ユーザーを更新しました。' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    @user = User.find(params[:id])
+    @user.assign_attributes(user_params)
+    if @user.save
+      redirect_to @user, notice: "アカウント情報を更新しました。"
+    else
+      render "edit"
     end
   end
 
