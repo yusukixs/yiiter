@@ -15,8 +15,13 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">記事<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><%= link_to "記事一覧", :articles  %></li>
+            <% if current_user %>
             <li><%= link_to "記事を作成する", :new_article %></li>
             <li><%= link_to "投票した記事", :voted_articles %></li>
+            <% else %>
+            <li class="disabled"><%= link_to "記事を作成する", "#" %></li>
+            <li class="disabled"><%= link_to "投票した記事", "#" %></li>
+            <% end %>
           </ul>
         </li>
 				<% if current_user %>

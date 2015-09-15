@@ -1,15 +1,27 @@
-<%- model_class = Article -%>
-
 <% @articles = @user.commented_articles.published.order("comments.created_at DESC") if @user %>
 <% if @articles.present? %>
-<ul>
-	<% @articles.each do |article| %>
-	<li>
-		<%= link_to article.title, article %>
-		by <%= user_image_tag article.author, height: 32 %><%= link_to article.author.full_name, user_path(article.author) %>
-  	| <%= model_class.human_attribute_name(:released_at) %>：<%=l article.released_at %>
-  	- <%= link_to "取消", [:unlike, article], method: :patch, data: { confirm: "取り消しますか？" } %>
-	</li>
-	<% end %>
-</ul>
+<div class="panel panel-default">
+  <ul class="list-group">
+  	<% @articles.each do |article| %>
+    <li class="list-group-item">
+		<div class="media">
+		  <%= user_image_tag article.author, class: "pull-left img-circle article-list-icon", height: 64 %>
+		  <div class="media-body">
+		    <div class="media-heading">
+		    	<%= article_status(article) %>
+		    	<%= link_to article.title, article_path(article) %>
+		    </div>
+		   	<%= link_to article.author.full_name, user_path(article.author) %>
+		  	| <%= Article.human_attribute_name(:released_at) %>：<%=l article.released_at %>	  	
+		  	<% if article.votes.count > 0 %>
+		  	| <span class="label label-primary">★<%= article.votes.count %></span>
+		  	<% end %>
+		  </div>
+		</div>
+    </li>
+    <% end %>
+  </ul>
+</div>
+<% else %>
+<p class="contents-block">コメントがまだありません。</p>
 <% end %>

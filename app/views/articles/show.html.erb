@@ -37,6 +37,7 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">コメント一覧</div>
+  <% if @comments.present? %>
   <ul class="list-group">
   	<% @comments.each do |comment| %>
     <li class="list-group-item">
@@ -51,4 +52,7 @@
     </li>
     <% end %>
   </ul>
+  <% else %>
+  <p>コメントはまだありません。</p>
+  <% end %>
 </div>
