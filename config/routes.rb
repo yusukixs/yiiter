@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :articles, only: [:index]
   end
   resources :articles do
-    member { patch :like, :unlike }
+    member { patch :like, :unlike, :comment }
     collection { get :voted, :commented }
     resources :comments
   end

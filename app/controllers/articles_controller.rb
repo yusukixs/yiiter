@@ -20,8 +20,7 @@ class ArticlesController < ApplicationController
   # GET /articles/1.json
   def show
     @article = Article.readable_for(current_user).find(params[:id])
-    
-    @comments = Comment.find_by_sql(["SELECT *
+    @comments = Comment.find_by_sql(["SELECT comments.comment, comments.user_id, comments.created_at, users.full_name, user_images.content_type
                   FROM comments
                   INNER JOIN (users INNER JOIN user_images ON users.id = user_images.user_id ) ON comments.user_id = users.id
                   WHERE comments.article_id = ?
@@ -67,8 +66,24 @@ class ArticlesController < ApplicationController
   def destroy
     @article.destroy
     respond_to do |format|
-      format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
+      format.html { redirect_to articles_url, notice: '記事を削除しました。' }
       format.json { head :no_content }
+    end
+  end
+  
+  # コメント登録
+  def comment
+    
+    #@comment.assign_attributes(comment_params)
+    @comment = Comment.new
+    @comment.comment = params[:comment]
+    @comment.article_id = params[:id]
+    @comment.user_id = session[:user_id]
+    if @comment.save
+      @article = Article.published.find(params[:id])
+      redirect_to @article, notice: "コメントを登録しました。"
+    else
+      render "show"
     end
   end
   
@@ -104,6 +119,10 @@ class ArticlesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
       params.require(:article).permit(:title, :description, :released_at, :status)
+    end
+    
+    def comment_params
+      params.require(:comment).permit(:comment)
     end
     
     def send_image

@@ -42,6 +42,16 @@
               :class => 'btn btn-danger' %>
 <% end %>
 
+<% if current_user && @article.status != "draft" %>
+<div class="well content-block-top">
+  <%= form_tag({ controller: "articles", id: @article.id, action: "comment" }, :method => :patch) do %>
+    <%= text_area_tag(:comment, "", { class: "form-control", rows: 5 }) %>
+    <%= error_span(@article[:comment]) %>
+    <%= submit_tag("コメントする", { class: "btn btn-default btn-primary content-block-top" }) %>
+  <% end %>
+</div>
+<% end %>
+
 <div class="panel panel-default content-block-top">
   <div class="panel-heading">コメント一覧</div>
   <% if @comments.present? %>

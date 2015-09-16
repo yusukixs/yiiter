@@ -1,6 +1,9 @@
 class Comment < ActiveRecord::Base
   belongs_to :article
-  belongs_to :user  
+  belongs_to :user
+  
+  validates :comment,
+    presence: true
 
   validate do
     unless user
