@@ -1,0 +1,77 @@
+<%- model_class = Article -%>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+    	<%= article_status(@article) %>
+    	<%= @article.title %>
+    </h3>
+  </div>
+  <div class="panel-body">
+    <%= markdown @article.description %>
+  </div>
+  <div class="panel-footer">
+  	by <%= user_image_tag @article.author, class: "img-circle", height: 32, title: @article.author.full_name %>
+  	<%= link_to @article.author.full_name, user_path(@article.author) %>
+  	
+  	<span style="float:right"><%=l @article.released_at %></span>
+  	<p>
+  	<p>
+  		この記事に<%= @article.votes.count %>人がいいね！しています。
+  		<% if current_user && current_user.votable_for?(@article) %>
+	  		<%= link_to "★いいね！", [:like, @article], method: :patch, class: "btn btn-primary btn-xs" %>
+	  	<% elsif @article.author.id != session[:user_id] %>
+	  		<%= link_to "★取消", [:unlike, @article], method: :patch, data: { confirm: "取り消しますか？" }, class: "btn btn-danger btn-xs" %>
+	  	<% end %>
+  	</p>
+  	<% @article.voters.order("votes.created_at").each do |voter| %>
+  		<%= user_image_tag voter, class: "img-circle", height: 32, title: voter.full_name %>
+  	<% end %>
+  	</p>
+ 	</div>
+</div>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              articles_path, :class => 'btn btn-default'  %>
+<% if current_user %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_article_path(@article), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              article_path(@article),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+<% end %>
+
+<% if current_user && @article.status != "draft" %>
+<div class="well content-block-top">
+  <%= form_tag({ controller: "articles", id: @article.id, action: "comment" }, :method => :patch) do %>
+    <%= text_area_tag(:comment, "", { class: "form-control", rows: 5 }) %>
+    <%= error_span(@article[:comment]) %>
+    <%= submit_tag("コメントする", { class: "btn btn-default btn-primary content-block-top" }) %>
+  <% end %>
+</div>
+<% end %>
+
+<div class="panel panel-default content-block-top">
+  <div class="panel-heading">コメント一覧</div>
+  <% if @comments.present? %>
+  <ul class="list-group">
+  	<% @comments.each do |comment| %>
+    <li class="list-group-item">
+		<div class="media">
+		  <%= comment_user_image comment, class: "pull-left img-circle article-list-icon", height: 64, title: comment.full_name %>
+		  <div class="media-body">
+				<%= markdown comment.comment %>
+		   	by <%= link_to comment.full_name, user_path(comment.user_id) %>
+		  	<span style="float:right">
+		  		<%=l comment.created_at %>	  
+		  	</span>	
+		  </div>
+		</div>
+    </li>
+    <% end %>
+  </ul>
+  <% else %>
+  <p class="comment-block">コメントはまだありません。</p>
+  <% end %>
+</div>

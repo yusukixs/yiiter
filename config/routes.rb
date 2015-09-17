@@ -1,4 +1,22 @@
 Rails.application.routes.draw do
+  root "top#index"
+  
+  get "about" => "top#about", as: "about"
+  get "login" => "top#login", as: "login"
+
+  resources :users do
+    resources :articles, only: [:index]
+  end
+  resources :articles do
+    member { patch :like, :unlike, :comment }
+    collection { get :voted, :commented }
+    resources :comments
+  end
+  resource :session, only: [:create, :destroy]
+  resource :account, only: [:show, :edit, :update]
+  
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -3,13 +3,11 @@ ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
-# Use sqlite3 as the development database for Active Record
-gem 'sqlite3'
 # Use postgresql as the database for Active Record
 gem 'pg'
 gem 'rails_12factor', group: :production
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0.3'
+# gem 'sass-rails', '~> 5.0.3'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
@@ -30,7 +28,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 gem 'puma'
 
@@ -40,3 +38,27 @@ gem 'puma'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# メッセージの日本語化
+gem 'rails-i18n'
+
+# javascript runtime。lessをコンパイルするために必要
+gem 'therubyracer'
+# Railsでlessを使えるようにする。Bootstrapがlessで書かれているため
+gem 'less-rails'
+# Bootstrapの本体
+gem 'twitter-bootstrap-rails'
+# シンプルフォーム
+gem 'simple_form'
+
+# Factory Girl
+group :test do
+  gem 'factory_girl_rails', '~> 4.4.0'
+end
+
+# ページネーション
+gem 'kaminari'
+
+# Markdown
+gem 'redcarpet'
+
+gem 'rack'

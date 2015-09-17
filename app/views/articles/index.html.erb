@@ -1,0 +1,50 @@
+<div class="page-header">
+	<% @page_title = @user ? @user.full_name + "さんの投稿記事一覧" : "記事一覧" %>
+  <h1><%= @page_title %></h1>
+</div>
+
+<% @articles.each do |article| %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">
+    	<%= article_status(article) %>
+    	<%= link_to article.title, article_path(article) %>
+    </h2>
+  </div>
+  <div class="panel-body">
+    <%= markdown truncate(article.description, length: 100) %>
+    <span style="float: right;"><%= link_to "もっと読む", article %></span>
+  </div>
+  <div class="panel-footer">
+  	<%= user_image_tag article.author, class: "img-circle", height: 32 %>
+  	<%= link_to article.author.full_name, user_path(article.author) %>
+  	
+  	<span style="float: right;">
+  	<%=l article.released_at %>
+  	<% if article.votes.count > 0 %>
+  	<span class="label label-primary">★<%= article.votes.count %></span>
+  	<% end %>
+  	</span>
+  	 
+  	<% if current_user %>
+  	<%= link_to t('.edit', :default => t("helpers.links.edit")),
+                edit_article_path(article), :class => 'btn btn-default btn-xs' %>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                article_path(article),
+                :method => :delete,
+                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                :class => 'btn btn-xs btn-danger' %>
+    <% end %>
+ 	</div>
+</div>
+<% end %>
+
+<%= paginate @articles %>
+
+<% if current_user %>
+<p>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_article_path,
+            :class => 'btn btn-primary' %>
+</p>
+<% end %>

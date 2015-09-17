@@ -1,0 +1,29 @@
+<% @page_title = "マイアカウント" %>
+<h1><%= @page_title %></h1>
+
+<%= simple_form_for @user, as: "account", url: :account, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :account_name %>
+  <%= error_span(@user[:account_name]) %>
+  <%= f.input :full_name %>
+  <%= error_span(@user[:full_name]) %>
+  <%= f.input :password %>
+  <%= error_span(@user[:password]) %>
+  <%= f.input :password_confirmation %>
+  <%= error_span(@user[:password_confirmation]) %>
+  <%= f.input :email %>
+  <%= error_span(@user[:email]) %>
+  <% if controller.kind_of?(UsersController) %>
+  <%= f.input :administrator %>
+  <%= error_span(@user[:administrator]) %>
+  <% end %>
+  
+  <% unless @user.new_record? %>
+  <p>パスワードを変更しない場合、パスワード入力欄は空にしてください。</p>
+  <% end %>
+
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                account_path, :class => 'btn btn-default' %>
+<% end %>
+
+
