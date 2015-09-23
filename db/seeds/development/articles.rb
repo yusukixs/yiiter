@@ -19,7 +19,7 @@ end
 ~~~
 "
 
-%w(Taro Jiro Hana).each do |name|
+%w(admin Jiro Hana).each do |name|
   user = User.find_by(account_name: name)
   0.upto(9) do |idx|
     article= Article.create(
@@ -46,7 +46,7 @@ end
 > > 引用2 (入れ子にも対応)
 
 > 引用3  
-> 引用元: <cite>さかなチキンぱん。</cite>"
+> 引用元: <cite>あいうえお</cite>"
         ) 
       end
     end

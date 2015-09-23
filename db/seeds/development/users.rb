@@ -1,4 +1,4 @@
-names = %w(Taro Jiro Hana John Mike Sophy Bill Alex Mary Tom)
+names = %w(admin Jiro Hana John Mike Sophy Bill Alex Mary Tom)
 fnames = ["佐藤", "鈴木", "高橋", "田中"]
 gnames = ["太郎", "次郎", "花子"]
 0.upto(9) do |idx|
@@ -10,8 +10,8 @@ gnames = ["太郎", "次郎", "花子"]
     password: "password",
     password_confirmation: "password"
   )
-  path = Rails.root.join("db/seeds/development", "member#{idx % 3 + 1}.jpg")
-  file = Rack::Test::UploadedFile.new(path, "image/jpeg", true)
+  path = Rails.root.join("db/seeds/development", "member#{idx + 1}.png")
+  file = Rack::Test::UploadedFile.new(path, "image/png", true)
   UserImage.create(
     user: user,
     uploaded_image: file
