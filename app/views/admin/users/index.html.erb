@@ -18,7 +18,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.id, user_path(user) %></td>
+        <td><%= link_to user.id, [:admin, user] %></td>
         <td><%= user_image_tag user, class: "img-circle", height: 32 %></td>
         <td><%= user.account_name %></td>
         <td><%= user.full_name %></td>
@@ -26,15 +26,13 @@
         <td><%= user.administrator %></td>
         <td><%=l user.created_at %></td>
         <td>
-          <% if current_user && current_user.administrator? %>
-            <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                        edit_admin_user_path(user), :class => 'btn btn-default btn-xs' %>
-            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                        admin_user_path(user),
-                        :method => :delete,
-                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                        :class => 'btn btn-xs btn-danger' %>
-          <% end %>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      [:edit, :admin, user], :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      [:admin, user],
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
         </td>
       </tr>
     <% end %>
@@ -43,10 +41,8 @@
 
 <%= paginate @users %>
 
-<% if current_user && current_user.administrator? %>
 <p>
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_admin_user_path,
+            :new_admin_user,
             :class => 'btn btn-primary' %>
 </p>
-<% end %>

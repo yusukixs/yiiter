@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
+  namespace :admin do
+  get 'top/index'
+  end
+
   root "top#index"
   
   get "about" => "top#about", as: "about"
   get "login" => "top#login", as: "login"
 
-  resources :users do
+  resources :users, only: [:index, :show] do
     resources :articles, only: [:index]
   end
   resources :articles do
@@ -15,6 +19,10 @@ Rails.application.routes.draw do
   resource :session, only: [:create, :destroy]
   resource :account, only: [:show, :edit, :update]
   
+  namespace :admin do
+    root to: "top#index"
+    resources :users
+  end
 
 
   # The priority is based upon order of creation: first created -> highest priority.
