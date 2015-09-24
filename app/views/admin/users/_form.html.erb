@@ -22,7 +22,7 @@
   <%= error_span(@user[:password_confirmation]) %>
   <%= f.input :email %>
   <%= error_span(@user[:email]) %>
-  <% if controller.kind_of?(UsersController) %>
+  <% if current_user.administrator? %>
   <%= f.input :administrator %>
   <%= error_span(@user[:administrator]) %>
   <% end %>

@@ -35,7 +35,7 @@
 
 <% if current_user %>
   <%= link_to t('.back', :default => t("helpers.links.back")),
-  			users_path, :class => 'btn btn-default'  %>
+  			:back, :class => 'btn btn-default'  %>
   <% if current_user.administrator? %>
     <%= link_to t('.edit', :default => t("helpers.links.edit")),
     			edit_admin_user_path(@user), :class => 'btn btn-default' %>
@@ -44,6 +44,9 @@
     			:method => 'delete',
     			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
     			:class => 'btn btn-danger' %>
+  <% elsif is_myself %>
+    <%= link_to "アカウント情報変更",
+              :edit_account, :class => 'btn btn-default' %>
   <% end %>
 <% end %>
 
