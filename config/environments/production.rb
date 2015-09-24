@@ -46,7 +46,7 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :debug
+  config.log_level = :error
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
@@ -79,4 +79,5 @@ Rails.application.configure do
   
   # Disable Rails's static asset server (Apache or nginx will already do this).
   config.serve_static_files = true
+  config.serve_static_assets = true
 end
