@@ -1,7 +1,20 @@
-<% @page_title = "マイアカウント" %>
+<% @page_title = "マイアカウント変更" %>
 <h1><%= @page_title %></h1>
 
 <%= simple_form_for @user, as: "account", url: :account, :html => { :class => 'form-horizontal' } do |f| %>
+  <label class="string control-label">ユーザーアイコン</label>
+  <%= f.fields_for :image do |imgf| %>
+    <%= imgf.file_field :uploaded_image %>
+    <% if !imgf.object.new_record? && imgf.object.errors.empty? %>
+    <div>
+      <%= user_image_tag @user, class: "img-circle", width: 60 %>
+      <%= imgf.check_box :_destroy %>
+      <%= imgf.label :_destroy %>
+      <%= imgf.hidden_field :id %>
+    </div>
+    <% end %>
+  <% end %>
+
   <%= f.input :account_name %>
   <%= error_span(@user[:account_name]) %>
   <%= f.input :full_name %>
@@ -23,7 +36,7 @@
 
   <%= f.button :submit, :class => 'btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                account_path, :class => 'btn btn-default' %>
+                :back, :class => 'btn btn-default' %>
 <% end %>
 
 
