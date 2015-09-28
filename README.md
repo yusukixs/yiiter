@@ -1,64 +1,76 @@
-# ruby-getting-started
+# Yiiterとは
 
-A barebones Rails app, which can easily be deployed to Heroku.
+Yiiterは社内の小規模チームで情報共有をするためのアプリケーションです。
 
-This application support the [Getting Started with Ruby on Heroku](https://devcenter.heroku.com/articles/getting-started-with-ruby) article - check it out.
+Markdown形式で記載した記事を共有し、記事にコメントや投票（いいね！）をつけることができます。
 
-## Running Locally
+## 動作環境
+- Ruby 2.2.3
+- Ruby on Rails 4.2.3
+- PostgreSQL 9.1.4
 
-Make sure you have Ruby installed.  Also, install the [Heroku Toolbelt](https://toolbelt.heroku.com/).
+## 初期設定
 
-```sh
-$ git clone git@github.com:heroku/ruby-getting-started.git
-$ cd ruby-getting-started
-$ bundle install
-$ bundle exec rake db:create db:migrate
-$ foreman start web
+```
+rake db:migrate
+rake db:seed
 ```
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+上記コマンドで初期データが作成されます。
 
-## Deploying to Heroku
+## 機能紹介
 
-```sh
-$ heroku create
-$ git push heroku master
-$ heroku run rake db:migrate
-$ heroku open
-```
+### はじめに
 
-## Docker
+サンプルアプリケーションをHerokuで公開しています。
 
-The app can be run and tested using the [Heroku Docker CLI plugin](https://devcenter.heroku.com/articles/introduction-local-development-with-docker).
+[Yiiterサンプルアプリケーション](https://yiiter.herokuapp.com/)
 
-Make sure the plugin is installed:
+**※Heroku環境では、毎日0時にデータがリセットされます。**
 
-    heroku plugins:install heroku-docker
+### ログイン
 
-Configure Docker and Docker Compose:
+ヘッダーにある「ログイン」ボタンを押すと、ログイン画面に遷移します。ユーザーID、パスワードを入力してログインしてください。
 
-    heroku docker:init
+### ユーザー管理
 
-And run the app locally:
+ユーザー管理は管理者権限を持つユーザーでのみ実行できます。
 
-    docker-compose up web
+デフォルト管理者ユーザーのログイン情報は下記の通りです。
 
-The app will now be available on the Docker daemon IP on port 8080.
+- ID: admin
+- Password: password
 
-To work with the local database and do migrations, you can open a shell:
+管理者ユーザーでログインすると、ユーザー管理メニューがヘッダーに表示されます。
 
-    docker-compose run shell
-    bundle exec rake db:migrate
+### 記事
 
-You can also use Docker to release to Heroku:
+ログイン後にメニューから「記事を作成する」を選択してください。
 
-    heroku create
-    heroku docker:release
-    heroku open
+#### 記事の公開範囲
 
-## Documentation
+記事ごとに公開範囲を指定することができます。
 
-For more information about using Ruby on Heroku, see these Dev Center articles:
+- 下書き：自分にしか記事が表示されません。
+- 会員限定：ログイン後にしか記事が表示されません。
+- 公開：ログインに関わらず、記事が表示されます。
 
-- [Ruby on Heroku](https://devcenter.heroku.com/categories/ruby)
+#### コメント
 
+ログインしている場合、記事ごとにコメントを記載することができます。
+
+コメントも記事同様にMarkdown形式で記載できます。
+
+#### いいね
+
+ログインしている場合、記事ごとにいいね！を投票することができます。
+
+自分の記事に投票することはできません。
+
+また、投票を取り消すこともできます。
+
+### ユーザー情報
+
+ユーザーアイコンやユーザー名を選択すると、そのユーザー情報を表示できます。
+
+そのユーザーの登録した記事、コメントした記事、いいね！した記事を一覧で確認することができます。
